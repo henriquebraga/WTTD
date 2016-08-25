@@ -32,10 +32,18 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-    pattern_not = 'not'
-    pattern_bad = 'bad'
-  # +++your code here+++
-  return
+    text = s.split()
+    position = 0
+    while position < len(text): 
+        word = text[position]
+        if word == 'not':
+            for second_word in text[position-1:]:
+                if second_word == 'bad':
+                    return ' '.join(text[:position]) + ' good' if second_word == 'bad' 
+                    else ' '.join(text[:position]) + ' good!'
+                
+        position += 1
+    return s  
 
 
 # F. front_back
