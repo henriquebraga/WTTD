@@ -39,8 +39,9 @@ def not_bad(s):
         if word == 'not':
             for second_word in text[position-1:]:
                 if second_word == 'bad':
-                    return ' '.join(text[:position]) + ' good' if second_word == 'bad' 
-                    else ' '.join(text[:position]) + ' good!'
+                    return ' '.join(text[:position]) + ' good'
+                elif second_word == 'bad!':
+                    return ' '.join(text[:position]) + ' good!'
                 
         position += 1
     return s  
@@ -53,10 +54,44 @@ def not_bad(s):
 # e.g. 'abcde', the front half is 'abc', the back half 'de'.
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
-def front_back(a, b):
-  # +++your code here+++
-  return
+#  test(front_back('abcd', 'xy'), 'abxcdy')
+#  test(front_back('abcde', 'xyz'), 'abcxydez')
+#  test(front_back('Kitten', 'Donut'), 'KitDontenut')
 
+def front_back(a, b):
+    front_back_text = ''
+
+    if is_even(a): #a is even
+        front_back_text = a[:int((len(a) / 2))]
+        if is_even(b): #a is even, b is even
+            front_back_text += b[:int(len(b) / 2)]
+            front_back_text += a[int((len(a) / 2)):]
+            front_back_text += b[int((len(a) / 2) - 1):]
+        else: #a is even, b is odd
+            front_back_text += b[:int((len(b) / 2) + 1)]
+            front_back_text += a[int((len(a) / 2)):]
+            front_back_text += b[int(len(a) / 2):]
+
+    else: # a is odd
+        front_back_text += a[:int(len(a)/ 2 + 1)]
+
+        if is_even(b): #a is odd, b is even
+            front_back_text += b[:int(len(b) / 2)]
+            front_back_text += a[int((len(a) / 2) + 1):]
+            front_back_text += b[int((len(a) / 2)):]
+        else: #a is odd, b is odd
+            front_back_text += b[:int(len(b) / 2 + 1)]
+            front_back_text += a[int((len(a) / 2) + 1):]
+            front_back_text += b[int((len(a) / 2)):]
+
+
+    return front_back_text
+
+
+
+
+def is_even(text):
+    return len(text) % 2 == 0
 
 # Simple provided test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
