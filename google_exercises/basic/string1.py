@@ -24,8 +24,7 @@
 # So donuts(5) returns 'Number of donuts: 5'
 # and donuts(23) returns 'Number of donuts: many'
 def donuts(count):
-    text = 'Number of donuts: {0}'
-    return text.format(count) if count < 10 else text.format('many') 
+    return 'Number of donuts: {0}'.format(str(count) if count < 10 else 'many')
 
 
 # B. both_ends
@@ -34,7 +33,7 @@ def donuts(count):
 # so 'spring' yields 'spng'. However, if the string length
 # is less than 2, return instead the empty string.
 def both_ends(s):
-  return s[0:2] + s[-2:] if len(s) >= 2 else ''
+    return s[:2] + s[-2:] if len(s) >= 2 else ''
 
 
 # C. fix_start
@@ -47,13 +46,8 @@ def both_ends(s):
 # Hint: s.replace(stra, strb) returns a version of string s
 # where all instances of stra have been replaced by strb.
 def fix_start(s):
-    for position in range(0,len(s) -1):
-        for next_position in range(position + 1, len(s)):
-            if s[position] == s[next_position]:
-                s = s[:next_position] + s[next_position:].replace(s[position], '*')
-                return s
-    return s
-
+    head, tail = s[0], s[1:]
+    return head + tail.replace(head, '*')
 
 # D. MixUp
 # Given strings a and b, return a single string with a and b separated
@@ -63,8 +57,13 @@ def fix_start(s):
 #   'dog', 'dinner' -> 'dig donner'
 # Assume a and b are length 2 or more.
 def mix_up(a, b):
+    return ''.join([b[:2], a[2:], ' ', a[:2], b[2:]])
+
+    #begin = slice(0,2)
+    #end = slice(2, None)
     #a, b = b[0:2] + a[2:], a[0:2] + b[2:]
-    return b[0:2] + a[2:] + ' ' + a[0:2] + b[2:]
+    #return ''.join([[]b[begin], a[end]], ' ', [a[begin], b[end]]] )
+    #return b[0:2] + a[2:] + ' ' + a[0:2] + b[2:]
 
 
 # Provided simple test() function used in main() to print

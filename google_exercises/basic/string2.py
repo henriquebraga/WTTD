@@ -14,13 +14,14 @@
 # add 'ly' instead.
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
+import re
 def verbing(s):
-    if len(s) >= 3:
-        if s[-3:] == 'ing':
-            s += 'ly'
-        else:
-            s += 'ing' 
-    return s
+    if len(s) < 3:
+        return s
+    sufix = 'ly' if s.endswith('ing') else 'ing'
+    return s + sufix
+    #return s += 'ly' if s.endswith('ing') else 'ing'
+
 
 
 # E. not_bad
@@ -32,19 +33,7 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-    text = s.split()
-    position = 0
-    while position < len(text): 
-        word = text[position]
-        if word == 'not':
-            for second_word in text[position-1:]:
-                if second_word == 'bad':
-                    return ' '.join(text[:position]) + ' good'
-                elif second_word == 'bad!':
-                    return ' '.join(text[:position]) + ' good!'
-                
-        position += 1
-    return s  
+    return re.sub(r'not\b((?!not).)*?bad', 'good', s)
 
 
 # F. front_back
@@ -59,40 +48,12 @@ def not_bad(s):
 #  test(front_back('Kitten', 'Donut'), 'KitDontenut')
 
 def front_back(a, b):
-    front_back_text = ''
+    mid = lambda s: (len(s) + 1) // 2
+    front = lambda s: s[:mid(s)]
+    back = lambda s: s[mid(s):]
+    return ''.join([front(a), front(b), back(a), back(b)])
 
-    if is_even(a): #a is even
-        front_back_text = a[:int((len(a) / 2))]
-        if is_even(b): #a is even, b is even
-            front_back_text += b[:int(len(b) / 2)]
-            front_back_text += a[int((len(a) / 2)):]
-            front_back_text += b[int((len(a) / 2) - 1):]
-        else: #a is even, b is odd
-            front_back_text += b[:int((len(b) / 2) + 1)]
-            front_back_text += a[int((len(a) / 2)):]
-            front_back_text += b[int(len(a) / 2):]
-
-    else: # a is odd
-        front_back_text += a[:int(len(a)/ 2 + 1)]
-
-        if is_even(b): #a is odd, b is even
-            front_back_text += b[:int(len(b) / 2)]
-            front_back_text += a[int((len(a) / 2) + 1):]
-            front_back_text += b[int((len(a) / 2)):]
-        else: #a is odd, b is odd
-            front_back_text += b[:int(len(b) / 2 + 1)]
-            front_back_text += a[int((len(a) / 2) + 1):]
-            front_back_text += b[int((len(a) / 2)):]
-
-
-    return front_back_text
-
-
-
-
-def is_even(text):
-    return len(text) % 2 == 0
-
+   
 # Simple provided test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
 def test(got, expected):

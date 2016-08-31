@@ -21,12 +21,26 @@
 # and last chars of the string are the same.
 # Note: python does not have a ++ operator, but += works.
 def match_ends(words):
-    count_match_ends = 0
-    for word in words:
-        if len(word) >= 2 and (word[0] == word[-1]):
-            count_match_ends+= 1
-  # +++your code here+++
-    return count_match_ends
+    #test = lambda : len(w) > 1 and w[:0] == w[-1]
+   # len(list(filter(lambda w : len(w) > 1 and w[0] == w[-1])) #Retorna generator p/ transformar em list
+    return sum(1 for w in words if len(w) > 1 and w[0] == w[-1])
+   # return len([w for w in words if len(w) > 1 and w[0] == w[-1]])
+
+    #count = 0
+    #for w in words:
+    #    if len(w) < 2 or w[0] != w[-1]:
+    #        continue
+
+     #   count += 1
+   # return count
+
+    #return len([word for word in words if len(word) > 1 and word[:1] == word[-1:]])
+
+    #count_match_ends = 0
+    #for word in words:
+    #    if len(word) >= 2 and (word[0] == word[-1]):
+    #        count_match_ends+= 1
+   # return count_match_ends
 
 
 # B. front_x
