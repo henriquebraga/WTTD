@@ -18,7 +18,6 @@ Tino = { Marguerita : 1, Quatro queijos : 5, Escarola : 1, Portuguesa : 4, Frang
 Luca = { Marguerita : 5, Quatro queijos : 4, Escarola : 3, Portuguesa : 4, Frango+Catupiry : 3, Napolitana : 2 }
  '''
 def main():
-    pizza_options = ('Marguerita', 'Quatro Queijos', 'Escarola', 'Portuguesa', 'Frango+Catupiry', 'Napolitana')
     pizza_rates = tuple(range(1, 6))
     menu()
 
@@ -26,21 +25,31 @@ def main():
 
 
 def menu():
-    super_dictionary = {}
+    pizza_rates = tuple(range(1, 6))
+    pizza_options = ('Marguerita', 'Quatro Queijos', 'Escarola', 'Portuguesa', 'Frango+Catupiry', 'Napolitana')
+    people_pizza_rates = {}
+    valid_options = (str(n) for n in range(1,3))
     print('Por favor escolha uma opção: ')
-    print('1- Cadastrar uma pizza')
+    print('1- Cadastrar um usuário')
     print('2- Informar gostos parecidos e sair')
-    read_input = input()
-    while read_input == '1':
-        name = input('Digite o seu nome'):
-        for option in pizza_options:
-            key = option
-            value = input('Digite sua opção de pizza')
-            dictionary_options = sorted(dict(zip('ABCDEF', pizza_options)))
-            for pizza_option in dictionary_options:
+    option = input()
+    if option not in valid_options:
+        print('Opção inválida')
+    else:
+        if option == '1':
+            person_name = input('Por favor digite o seu nome: ')
+            if person_name in people_pizza_rates:
+                print('Nome já existente. Favor digite outro [Sugestão: Use nome + sobrenome!')
+            pizzas_rates = {}
+            for pizza in pizza_options:
+                rate = input('Por favor digite uma nota entre 1 a 5 para a pizza {0}'.format(pizza))
+                pizzas_rates[pizza] = rate
+            people_pizza_rates[person_name] = pizza_rates
 
-            sum(1 )    
+
+        elif option == '2':
+            return '2'
 
 
-if __name__ = '__main__':
-    main()
+if __name__ == '__main__':
+    print(menu())
