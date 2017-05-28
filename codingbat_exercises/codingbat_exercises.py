@@ -22,7 +22,9 @@ string_splosion('ab') → 'aab'
 def string_splosion(str):
     if not str:
         return ''
+
     splosion_word = ''
+
     for position in range(0, len(str)):
         splosion_word += str[:position + 1]
     return splosion_word
@@ -37,11 +39,15 @@ string_splosion('ab') → 'aab'
 '''
 
 def monkey_trouble(a_smile, b_smile): #a smile - false || b smile true
-    we_are_in_trouble = (a_smile and b_smile) or (not a_smile and not b_smile)
-    return we_are_in_trouble
+    are_both_smiling = a_smile and b_smile
+    is_no_one_smiling = not a_smile and not b_smile
+
+    return are_both_smiling or is_no_one_smiling
+
 
 def sum_double(a, b):
   return a + b if a != b else (a + b) * 2
+
 
 '''
 Logic-2 > make_bricks 
@@ -56,8 +62,8 @@ def make_bricks(small, big, goal):
     #Function to test if sum of all bricks is smaller than goal. If so,
     #obviously we will never match the goal :)
     is_total_smaller_than_goal = lambda goal, small, big : (small * 1 + big * 5) < goal
-    
-    #Here we test if small brickes are enough to match the goal.
+
+    #Here we test if small brickes are not able to match the goal.
     #E.g: Suppose we have as entries:
     # small=3 Small bricks (Remember: each one represents 1 inch)
     # big=1 brick (Remeber: each one represents 1 inch)
@@ -69,12 +75,13 @@ def make_bricks(small, big, goal):
     #it's fairly possible to get to know if it's possible to match the goal number.
     #(If the module from 8 / 5 results 3 (3 inches), so we need AT LEAST 3 small bricks)
     # to get to goal number! (5 + 3 = 8)
-    does_small_bricks_matches_goal = lambda goal, small_bricks_quantity : small_bricks_quantity < (goal % 5)
-    if is_total_smaller_than_goal(goal, small, big) or \
-    does_small_bricks_matches_goal(goal, small):
-        return False
-    return True
-  
+    unable_to_match_the_goal = lambda goal, small_bricks_quantity : small_bricks_quantity < (goal % 5)
+
+    return (
+            not is_total_smaller_than_goal(goal, small, big)
+            and not unable_to_match_the_goal(goal, small)
+        )
+
 
 ''' A simple method for testing-solution purposes.'''
 def test(current, expected):
